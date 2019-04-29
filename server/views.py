@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 
 def signIn(request):
 	if request.method == 'POST':

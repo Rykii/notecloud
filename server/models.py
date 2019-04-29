@@ -1,30 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import validate_comma_separated_integer_list
 
 # Create your models here.
 class UserOptions(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_first = models.BooleanField('是否首套')
-    weight = models.CommaSeparatedIntegerField('权重', max_length=100)
+    weight = models.CharField('权重', validators=[validate_comma_separated_integer_list], max_length=128)
 
 class Area(models.Model):
-    name = models.CharField('板块名称', max_length=100)
+    name = models.CharField('板块名称', max_length=128)
 
 class Neighbor(models.Model):
-    name = models.CharField('楼盘名称', max_length=100)
+    name = models.CharField('楼盘名称', max_length=128)
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    address = models.CharField('地址', max_length=100)
+    address = models.CharField('地址', max_length=128)
 
 class House(models.Model):
     neighbor = models.ForeignKey(Neighbor, on_delete=models.CASCADE)
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
-    square = models.DecimalField('面积', max_digits=10, decimal_places=2)
-    rooms = models.CommaSeparatedIntegerField('房型', max_length=100)
-    floor = models.CommaSeparatedIntegerField('楼层', max_length=10)
+    square = models.DecimalField('面积', max_digits=8, decimal_places=2)
+    rooms = models.CharField('房型', validators=[validate_comma_separated_integer_list], max_length=128)
+    floor = models.CharField('楼层', validators=[validate_comma_separated_integer_list], max_length=8)
     age = models.IntegerField('年代')
     price = models.IntegerField('价格')
     tax_type = models.IntegerField('税费类型')
-    lift_house = models.CommaSeparatedIntegerField('梯户比', max_length=10)
+    lift_house = models.CharField('梯户比', validators=[validate_comma_separated_integer_list], max_length=8)
     image_path = models.URLField()
 
 class AreaScore(models.Model):
