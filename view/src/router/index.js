@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'SignIn',
+      name: 'sign-in',
       component: SignIn
     }
   ]

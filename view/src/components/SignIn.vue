@@ -1,4 +1,5 @@
 <template>
+<div>
 	<el-form ref="signIn" :model="signIn" :rules="rules">
 		<el-row :gutter="20">
 			<el-col :xs="3" :sm="6" :md="7" :lg="8" :xl="9">&nbsp;</el-col>
@@ -20,7 +21,7 @@
 			<el-row :gutter="20">
 				<el-col :xs="3" :sm="6" :md="7" :lg="8" :xl="9">&nbsp;</el-col>
 				<el-col :xs="5" :sm="3" :md="2" :lg="2" :xl="1">
-					<el-link href="/signUp" type="primary">Sign up</el-link>
+					<el-button type='text' @click="signUpDialogVisible = true">Sign up</el-button>
 				</el-col>
 				<el-col :xs="0" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 				<el-col :xs="16" :sm="7" :md="6" :lg="4" :xl="3">
@@ -30,13 +31,18 @@
 			</el-row>
 		</el-form-item>
 	</el-form>
+	<sign-up-dialog :visible="signUpDialogVisible" @update:visible="val => signUpDialogVisible = val"></sign-up-dialog>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
-
+import SignUpDialog from '@/components/SignUpDialog'
 export default {
-	name: 'SignIn',
+	name: 'sign-in',
+	components: {
+		'sign-up-dialog': SignUpDialog
+	},
 	data() {
 		return {
 			signIn: {
@@ -52,7 +58,8 @@ export default {
 					{required: true, message: 'Password cannot be empty!', trigger: 'blur'},
 					{min: 3, max: 18, message: 'Password must be between 3 and 18 characters long.', trigger: 'blur'}
 				]
-			}
+			},
+			signUpDialogVisible: false
 		};
 	},
 	methods: {
