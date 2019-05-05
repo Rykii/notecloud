@@ -5,8 +5,8 @@ from django.core.validators import validate_comma_separated_integer_list
 # Create your models here.
 class UserOptions(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_first = models.BooleanField('是否首套')
-    weight = models.CharField('权重', validators=[validate_comma_separated_integer_list], max_length=128)
+    is_first = models.BooleanField('是否首套', default=True)
+    weight = models.CharField('权重', validators=[validate_comma_separated_integer_list], max_length=128, default='10,10,10,10,10,10,10,10,10,10')
 
 class Area(models.Model):
     name = models.CharField('板块名称', max_length=128)

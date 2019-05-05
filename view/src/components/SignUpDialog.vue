@@ -73,8 +73,8 @@ export default {
 						if(data && data.errorCode === 10001) {
 							vModel.$message.error(data.errorMessage);
 						} else if(data && data.success) {
-                            vModel.$message.success(data.message);
-                            this.setVisible(false)
+                            vModel.$message({message: data.message, type: 'success'});
+                            vModel.setVisible(false)
                         }
 					})
 					.catch(function(error){
@@ -86,10 +86,8 @@ export default {
 			});
         },
         setVisible(isVisible) {
-            this.signUp.username = '';
-            this.signUp.password = '';
-            this.signUp.repassword = '';
             this.$emit('update:visible', isVisible);
+			this.$refs['signUp'].resetFields();
         }
     }
 }

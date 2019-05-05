@@ -39,5 +39,5 @@ def signUp(request):
 			user = User.objects.create_user(username=username, password=password, email='')
 			user_options = UserOptions(user=user)
 			user_options.save()
-			result = json.dumps({'success': 1, 'successMessage': 'Sign up successfully complete!'})
+			result = json.dumps({'success': 1, 'message': 'Sign up successfully complete!'})
 		return JsonResponse(result, safe = False)
